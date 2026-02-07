@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client"
+  output   = "./generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String     @id @default(uuid())
+  email     String     @unique
+  name      String?
+  document  String?
+  phone     String?
+  password  String
+  role      Role       @default(ADMIN)
+  clerkId   String
+  documents Document[]
+  requests  Request[]
+}
+
+model Document {
+  id        String    @id @default(uuid())
+  userId    String
+  title     String
+  location  String?
+  category  Category?
+  isPublic  Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  user      User      @relation(fields: [userId], references: [id])
+  requests  Request[]
+}
+
+model Request {
+  id          String   @id @default(uuid())
+  requestedBy String
+  documentId  String
+  reason      String
+  user        User     @relation(fields: [requestedBy], references: [id])
+  document    Document @relation(fields: [documentId], references: [id])
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum Category {
+  Leyes
+  Gacetas
+  Libros
+}
