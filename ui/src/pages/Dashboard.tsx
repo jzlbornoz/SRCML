@@ -50,9 +50,9 @@ export function Dashboard() {
             </SimpleGrid>
 
             {/* Tabla de Archivos Recientes */}
-            <Paper radius="md">
-                <Text size="lg" fw={600} mb="md">Archivos Recientes</Text>
-                <Skeleton visible={isPending} height={100} width="100%">
+            <Skeleton visible={isPending} height={100} width="100%">
+                <Paper radius="md">
+                    <Text size="lg" fw={600} mb="md">Archivos Recientes</Text>
                     <Table highlightOnHover verticalSpacing="sm">
                         <Table.Thead>
                             <Table.Tr>
@@ -78,10 +78,9 @@ export function Dashboard() {
                                 </Table.Tr>
                             ))}
                         </Table.Tbody>
-
                     </Table>
-                </Skeleton>
-            </Paper >
+                </Paper >
+            </Skeleton >
         </>
     );
 }

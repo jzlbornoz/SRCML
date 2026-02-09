@@ -167,7 +167,6 @@ export function Library() {
                                 w={200}
                             />
                         </Group>
-
                         {/* Toggle de Vista (Lista / Grid) */}
                         <Group gap={5}>
                             <ActionIcon
