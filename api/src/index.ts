@@ -1,12 +1,14 @@
 import 'dotenv/config'
-
 import express from 'express'
+import cors from "cors"
 import documentRouter from './routes/document'
 import { prisma } from '../lib/CustomPrismaClient';
 
-prisma.$connect();
-
 const app = express()
+
+app.use(cors());
+
+prisma.$connect();
 
 app.use(express.json())
 

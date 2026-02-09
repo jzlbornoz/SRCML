@@ -30,6 +30,8 @@ import {
     IconPhoto,
     IconFileDescription
 } from '@tabler/icons-react';
+import { useDisclosure } from '@mantine/hooks';
+import RegisterDocumentModal from '../components/RegisterDocumentModal';
 
 // 1. Definición de Tipos
 interface DocumentItem {
@@ -67,6 +69,8 @@ export function Library() {
     const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
     const [search, setSearch] = useState('');
     const [typeFilter, setTypeFilter] = useState<string | null>(null);
+
+    const [opened, { open, close }] = useDisclosure(false);
 
     // 4. Lógica de Filtrado
     const filteredDocs = mockDocs.filter((doc) => {
@@ -153,7 +157,7 @@ export function Library() {
                     <Title order={2}>Biblioteca de Archivos</Title>
                     <Text c="dimmed" size="sm">Gestiona y organiza la documentación del sistema</Text>
                 </div>
-                <Button>Subir Archivo</Button>
+                <Button onClick={open}>Subir Archivo</Button>
             </Group>
 
             {/* --- Barra de Filtros --- */}
@@ -236,6 +240,8 @@ export function Library() {
             <Group justify="center" mt="xl">
                 <Pagination total={5} color="indigo" />
             </Group>
+
+            <RegisterDocumentModal opened={opened} close={close} />
         </Stack>
     );
 }

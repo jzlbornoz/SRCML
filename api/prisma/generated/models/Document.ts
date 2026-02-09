@@ -29,10 +29,12 @@ export type DocumentMinAggregateOutputType = {
   userId: string | null
   title: string | null
   location: string | null
+  url: string | null
   category: $Enums.Category | null
   isPublic: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  deletedAt: Date | null
 }
 
 export type DocumentMaxAggregateOutputType = {
@@ -40,10 +42,12 @@ export type DocumentMaxAggregateOutputType = {
   userId: string | null
   title: string | null
   location: string | null
+  url: string | null
   category: $Enums.Category | null
   isPublic: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  deletedAt: Date | null
 }
 
 export type DocumentCountAggregateOutputType = {
@@ -51,10 +55,12 @@ export type DocumentCountAggregateOutputType = {
   userId: number
   title: number
   location: number
+  url: number
   category: number
   isPublic: number
   createdAt: number
   updatedAt: number
+  deletedAt: number
   _all: number
 }
 
@@ -64,10 +70,12 @@ export type DocumentMinAggregateInputType = {
   userId?: true
   title?: true
   location?: true
+  url?: true
   category?: true
   isPublic?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
 }
 
 export type DocumentMaxAggregateInputType = {
@@ -75,10 +83,12 @@ export type DocumentMaxAggregateInputType = {
   userId?: true
   title?: true
   location?: true
+  url?: true
   category?: true
   isPublic?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
 }
 
 export type DocumentCountAggregateInputType = {
@@ -86,10 +96,12 @@ export type DocumentCountAggregateInputType = {
   userId?: true
   title?: true
   location?: true
+  url?: true
   category?: true
   isPublic?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
   _all?: true
 }
 
@@ -170,10 +182,12 @@ export type DocumentGroupByOutputType = {
   userId: string
   title: string
   location: string | null
+  url: string
   category: $Enums.Category | null
   isPublic: boolean
   createdAt: Date
   updatedAt: Date
+  deletedAt: Date | null
   _count: DocumentCountAggregateOutputType | null
   _min: DocumentMinAggregateOutputType | null
   _max: DocumentMaxAggregateOutputType | null
@@ -202,10 +216,12 @@ export type DocumentWhereInput = {
   userId?: Prisma.StringFilter<"Document"> | string
   title?: Prisma.StringFilter<"Document"> | string
   location?: Prisma.StringNullableFilter<"Document"> | string | null
+  url?: Prisma.StringFilter<"Document"> | string
   category?: Prisma.EnumCategoryNullableFilter<"Document"> | $Enums.Category | null
   isPublic?: Prisma.BoolFilter<"Document"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Document"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Document"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Document"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   requests?: Prisma.RequestListRelationFilter
 }
@@ -215,10 +231,12 @@ export type DocumentOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
+  url?: Prisma.SortOrder
   category?: Prisma.SortOrderInput | Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   requests?: Prisma.RequestOrderByRelationAggregateInput
 }
@@ -231,10 +249,12 @@ export type DocumentWhereUniqueInput = Prisma.AtLeast<{
   userId?: Prisma.StringFilter<"Document"> | string
   title?: Prisma.StringFilter<"Document"> | string
   location?: Prisma.StringNullableFilter<"Document"> | string | null
+  url?: Prisma.StringFilter<"Document"> | string
   category?: Prisma.EnumCategoryNullableFilter<"Document"> | $Enums.Category | null
   isPublic?: Prisma.BoolFilter<"Document"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Document"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Document"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Document"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   requests?: Prisma.RequestListRelationFilter
 }, "id">
@@ -244,10 +264,12 @@ export type DocumentOrderByWithAggregationInput = {
   userId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
+  url?: Prisma.SortOrder
   category?: Prisma.SortOrderInput | Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.DocumentCountOrderByAggregateInput
   _max?: Prisma.DocumentMaxOrderByAggregateInput
   _min?: Prisma.DocumentMinOrderByAggregateInput
@@ -261,20 +283,24 @@ export type DocumentScalarWhereWithAggregatesInput = {
   userId?: Prisma.StringWithAggregatesFilter<"Document"> | string
   title?: Prisma.StringWithAggregatesFilter<"Document"> | string
   location?: Prisma.StringNullableWithAggregatesFilter<"Document"> | string | null
+  url?: Prisma.StringWithAggregatesFilter<"Document"> | string
   category?: Prisma.EnumCategoryNullableWithAggregatesFilter<"Document"> | $Enums.Category | null
   isPublic?: Prisma.BoolWithAggregatesFilter<"Document"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Document"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Document"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Document"> | Date | string | null
 }
 
 export type DocumentCreateInput = {
   id?: string
   title: string
   location?: string | null
+  url: string
   category?: $Enums.Category | null
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutDocumentsInput
   requests?: Prisma.RequestCreateNestedManyWithoutDocumentInput
 }
@@ -284,10 +310,12 @@ export type DocumentUncheckedCreateInput = {
   userId: string
   title: string
   location?: string | null
+  url: string
   category?: $Enums.Category | null
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   requests?: Prisma.RequestUncheckedCreateNestedManyWithoutDocumentInput
 }
 
@@ -295,10 +323,12 @@ export type DocumentUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  url?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableEnumCategoryFieldUpdateOperationsInput | $Enums.Category | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutDocumentsNestedInput
   requests?: Prisma.RequestUpdateManyWithoutDocumentNestedInput
 }
@@ -308,10 +338,12 @@ export type DocumentUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  url?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableEnumCategoryFieldUpdateOperationsInput | $Enums.Category | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requests?: Prisma.RequestUncheckedUpdateManyWithoutDocumentNestedInput
 }
 
@@ -320,20 +352,24 @@ export type DocumentCreateManyInput = {
   userId: string
   title: string
   location?: string | null
+  url: string
   category?: $Enums.Category | null
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type DocumentUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  url?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableEnumCategoryFieldUpdateOperationsInput | $Enums.Category | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type DocumentUncheckedUpdateManyInput = {
@@ -341,10 +377,12 @@ export type DocumentUncheckedUpdateManyInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  url?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableEnumCategoryFieldUpdateOperationsInput | $Enums.Category | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type DocumentListRelationFilter = {
@@ -362,10 +400,12 @@ export type DocumentCountOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   location?: Prisma.SortOrder
+  url?: Prisma.SortOrder
   category?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type DocumentMaxOrderByAggregateInput = {
@@ -373,10 +413,12 @@ export type DocumentMaxOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   location?: Prisma.SortOrder
+  url?: Prisma.SortOrder
   category?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type DocumentMinOrderByAggregateInput = {
@@ -384,10 +426,12 @@ export type DocumentMinOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   location?: Prisma.SortOrder
+  url?: Prisma.SortOrder
   category?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type DocumentScalarRelationFilter = {
@@ -449,6 +493,10 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type DocumentCreateNestedOneWithoutRequestsInput = {
   create?: Prisma.XOR<Prisma.DocumentCreateWithoutRequestsInput, Prisma.DocumentUncheckedCreateWithoutRequestsInput>
   connectOrCreate?: Prisma.DocumentCreateOrConnectWithoutRequestsInput
@@ -467,10 +515,12 @@ export type DocumentCreateWithoutUserInput = {
   id?: string
   title: string
   location?: string | null
+  url: string
   category?: $Enums.Category | null
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   requests?: Prisma.RequestCreateNestedManyWithoutDocumentInput
 }
 
@@ -478,10 +528,12 @@ export type DocumentUncheckedCreateWithoutUserInput = {
   id?: string
   title: string
   location?: string | null
+  url: string
   category?: $Enums.Category | null
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   requests?: Prisma.RequestUncheckedCreateNestedManyWithoutDocumentInput
 }
 
@@ -519,20 +571,24 @@ export type DocumentScalarWhereInput = {
   userId?: Prisma.StringFilter<"Document"> | string
   title?: Prisma.StringFilter<"Document"> | string
   location?: Prisma.StringNullableFilter<"Document"> | string | null
+  url?: Prisma.StringFilter<"Document"> | string
   category?: Prisma.EnumCategoryNullableFilter<"Document"> | $Enums.Category | null
   isPublic?: Prisma.BoolFilter<"Document"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Document"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Document"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Document"> | Date | string | null
 }
 
 export type DocumentCreateWithoutRequestsInput = {
   id?: string
   title: string
   location?: string | null
+  url: string
   category?: $Enums.Category | null
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutDocumentsInput
 }
 
@@ -541,10 +597,12 @@ export type DocumentUncheckedCreateWithoutRequestsInput = {
   userId: string
   title: string
   location?: string | null
+  url: string
   category?: $Enums.Category | null
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type DocumentCreateOrConnectWithoutRequestsInput = {
@@ -567,10 +625,12 @@ export type DocumentUpdateWithoutRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  url?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableEnumCategoryFieldUpdateOperationsInput | $Enums.Category | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutDocumentsNestedInput
 }
 
@@ -579,30 +639,36 @@ export type DocumentUncheckedUpdateWithoutRequestsInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  url?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableEnumCategoryFieldUpdateOperationsInput | $Enums.Category | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type DocumentCreateManyUserInput = {
   id?: string
   title: string
   location?: string | null
+  url: string
   category?: $Enums.Category | null
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type DocumentUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  url?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableEnumCategoryFieldUpdateOperationsInput | $Enums.Category | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requests?: Prisma.RequestUpdateManyWithoutDocumentNestedInput
 }
 
@@ -610,10 +676,12 @@ export type DocumentUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  url?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableEnumCategoryFieldUpdateOperationsInput | $Enums.Category | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requests?: Prisma.RequestUncheckedUpdateManyWithoutDocumentNestedInput
 }
 
@@ -621,10 +689,12 @@ export type DocumentUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  url?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableEnumCategoryFieldUpdateOperationsInput | $Enums.Category | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -663,10 +733,12 @@ export type DocumentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   userId?: boolean
   title?: boolean
   location?: boolean
+  url?: boolean
   category?: boolean
   isPublic?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   requests?: boolean | Prisma.Document$requestsArgs<ExtArgs>
   _count?: boolean | Prisma.DocumentCountOutputTypeDefaultArgs<ExtArgs>
@@ -677,10 +749,12 @@ export type DocumentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   userId?: boolean
   title?: boolean
   location?: boolean
+  url?: boolean
   category?: boolean
   isPublic?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["document"]>
 
@@ -689,10 +763,12 @@ export type DocumentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   userId?: boolean
   title?: boolean
   location?: boolean
+  url?: boolean
   category?: boolean
   isPublic?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["document"]>
 
@@ -701,13 +777,15 @@ export type DocumentSelectScalar = {
   userId?: boolean
   title?: boolean
   location?: boolean
+  url?: boolean
   category?: boolean
   isPublic?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
 }
 
-export type DocumentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "title" | "location" | "category" | "isPublic" | "createdAt" | "updatedAt", ExtArgs["result"]["document"]>
+export type DocumentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "title" | "location" | "url" | "category" | "isPublic" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["document"]>
 export type DocumentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   requests?: boolean | Prisma.Document$requestsArgs<ExtArgs>
@@ -731,10 +809,12 @@ export type $DocumentPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     userId: string
     title: string
     location: string | null
+    url: string
     category: $Enums.Category | null
     isPublic: boolean
     createdAt: Date
     updatedAt: Date
+    deletedAt: Date | null
   }, ExtArgs["result"]["document"]>
   composites: {}
 }
@@ -1164,10 +1244,12 @@ export interface DocumentFieldRefs {
   readonly userId: Prisma.FieldRef<"Document", 'String'>
   readonly title: Prisma.FieldRef<"Document", 'String'>
   readonly location: Prisma.FieldRef<"Document", 'String'>
+  readonly url: Prisma.FieldRef<"Document", 'String'>
   readonly category: Prisma.FieldRef<"Document", 'Category'>
   readonly isPublic: Prisma.FieldRef<"Document", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Document", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Document", 'DateTime'>
+  readonly deletedAt: Prisma.FieldRef<"Document", 'DateTime'>
 }
     
 

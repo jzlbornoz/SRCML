@@ -11,7 +11,7 @@ const adapter = new PrismaPg({
     connectionString: process.env.DATABASE_URL,
 })
 
-const SOFT_DELETE_MODELS = ['User', 'Document'];
+const SOFT_DELETE_MODELS: string[] = [];
 
 const prismaClientSingleton = () => {
     const baseClient = new PrismaClient({

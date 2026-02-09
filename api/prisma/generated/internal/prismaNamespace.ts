@@ -686,10 +686,12 @@ export const DocumentScalarFieldEnum = {
   userId: 'userId',
   title: 'title',
   location: 'location',
+  url: 'url',
   category: 'category',
   isPublic: 'isPublic',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 } as const
 
 export type DocumentScalarFieldEnum = (typeof DocumentScalarFieldEnum)[keyof typeof DocumentScalarFieldEnum]

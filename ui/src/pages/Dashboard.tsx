@@ -1,6 +1,8 @@
 // pages/Dashboard.tsx
 import { Paper, Text, RingProgress, Group, SimpleGrid, Table, Badge } from '@mantine/core';
 import { IconArrowUpRight, IconArrowDownRight } from '@tabler/icons-react';
+import { useQuery } from '@tanstack/react-query';
+import { getDocuments } from '../services/document';
 
 export function Dashboard() {
     const stats = [
@@ -14,6 +16,11 @@ export function Dashboard() {
         { name: 'Backup_DB.sql', size: '150 MB', type: 'SQL', status: 'Pendiente' },
         { name: 'Logo_Final.png', size: '4.2 MB', type: 'Image', status: 'Rechazado' },
     ];
+
+    const { data: documents } = useQuery({
+        queryKey: [getDocuments.key],
+        queryFn: getDocuments.fn
+    })
 
     return (
         <>

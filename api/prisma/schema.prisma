@@ -25,10 +25,12 @@ model Document {
   userId    String
   title     String
   location  String?
+  url       String
   category  Category?
   isPublic  Boolean   @default(false)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
   user      User      @relation(fields: [userId], references: [id])
   requests  Request[]
 }
