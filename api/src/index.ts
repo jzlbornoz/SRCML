@@ -3,6 +3,8 @@ import express from 'express'
 import cors from "cors"
 import documentRouter from './routes/document'
 import { prisma } from '../lib/CustomPrismaClient';
+import bodyParser from "body-parser";
+import { webHookController } from './controllers/clerk';
 
 const app = express()
 
@@ -13,6 +15,9 @@ prisma.$connect();
 app.use(express.json())
 
 app.use('/document', documentRouter)
+
+// Webhooks
+app.post('/webhook', bodyParser.raw({ type: 'application/json' }), webHookController);
 
 app.listen(3000, () =>
   console.log(`🚀 Server ready at: http://localhost:3000`))
