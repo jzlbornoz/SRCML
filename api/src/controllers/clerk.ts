@@ -34,7 +34,7 @@ export const webHookController = async (req: Request, res: Response) => {
                     id: existUser.id
                 },
                 data: {
-                    clerkId: webhookVerified.data.email_addresses[0].id
+                    clerkId: webhookVerified.data.id
                 }
             })
         } else {
@@ -42,7 +42,7 @@ export const webHookController = async (req: Request, res: Response) => {
                 data: {
                     name: webhookVerified.data.first_name + ' ' + webhookVerified.data.last_name,
                     email: webhookVerified.data.email_addresses[0].email_address,
-                    clerkId: webhookVerified.data.email_addresses[0].id,
+                    clerkId: webhookVerified.data.id,
                     role: 'ADMIN',
                     password: '',
                 },
