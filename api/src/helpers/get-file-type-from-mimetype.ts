@@ -3,9 +3,11 @@ export function getFileTypeFromMimetype(mimetype: string): 'image' | 'video' | '
         return null;
     }
 
+    console.log('mimetype', mimetype)
+
     const lowerMimetype = mimetype.toLowerCase();
 
-    if (lowerMimetype.startsWith('image/') || mimetype === 'application/pdf') {
+    if (lowerMimetype.startsWith('image/')) {
         return 'image';
     }
 

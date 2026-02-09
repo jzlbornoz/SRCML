@@ -4,7 +4,21 @@ import { axiosInstance } from "../helpers/axios-config"
 export const getDocuments = {
     key: 'document/getDocuments',
     fn: async () => {
-        const response = await axiosInstance.get('/document')
+        const response = await axiosInstance.get<Array<{
+            id: string
+            userId: string
+            title: string
+            location: string
+            url: string
+            category: string
+            isPublic: boolean
+            createdAt: string
+            updatedAt: string
+            deletedAt?: string
+            user: {
+                name: string
+            }
+        }>>('/document')
         return response.data
     }
 }
@@ -17,7 +31,7 @@ export const createDocument = {
         category: string;
         userId: string;
         location: string;
-        files: File[];
+        file: File | null;
     }) => {
 
         const formData = new FormData();
@@ -25,18 +39,16 @@ export const createDocument = {
         for (const key in data) {
 
             const typedKey = key as keyof typeof data;
-            if (data[typedKey] && typedKey !== 'files') {
+            if (data[typedKey] && typedKey !== 'file') {
                 formData.append(typedKey, data[typedKey] as string | Blob);
             }
         }
 
-        if (data.files) {
-            for (const file of data.files) {
-                formData.append('files', file);
-            }
+        if (data.file) {
+            formData.append('files', data.file);
         }
 
-        const response = await axiosInstance.post('/document', data, {
+        const response = await axiosInstance.post('/document', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

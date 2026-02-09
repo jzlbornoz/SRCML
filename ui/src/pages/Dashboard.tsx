@@ -1,5 +1,5 @@
 // pages/Dashboard.tsx
-import { Paper, Text, RingProgress, Group, SimpleGrid, Table, Badge } from '@mantine/core';
+import { Paper, Text, RingProgress, Group, SimpleGrid, Table, Badge, Skeleton } from '@mantine/core';
 import { IconArrowUpRight, IconArrowDownRight } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 import { getDocuments } from '../services/document';
@@ -11,13 +11,7 @@ export function Dashboard() {
         { label: 'Usuarios Activos', value: '34', diff: 5, color: 'blue' },
     ];
 
-    const files = [
-        { name: 'Reporte_2023.pdf', size: '2.5 MB', type: 'PDF', status: 'Verificado' },
-        { name: 'Backup_DB.sql', size: '150 MB', type: 'SQL', status: 'Pendiente' },
-        { name: 'Logo_Final.png', size: '4.2 MB', type: 'Image', status: 'Rechazado' },
-    ];
-
-    const { data: documents } = useQuery({
+    const { data: documents, isPending } = useQuery({
         queryKey: [getDocuments.key],
         queryFn: getDocuments.fn
     })
@@ -58,33 +52,36 @@ export function Dashboard() {
             {/* Tabla de Archivos Recientes */}
             <Paper radius="md">
                 <Text size="lg" fw={600} mb="md">Archivos Recientes</Text>
-                <Table highlightOnHover verticalSpacing="sm">
-                    <Table.Thead>
-                        <Table.Tr>
-                            <Table.Th>Nombre</Table.Th>
-                            <Table.Th>Tamaño</Table.Th>
-                            <Table.Th>Tipo</Table.Th>
-                            <Table.Th>Estado</Table.Th>
-                        </Table.Tr>
-                    </Table.Thead>
-                    <Table.Tbody>
-                        {files.map((file) => (
-                            <Table.Tr key={file.name}>
-                                <Table.Td>{file.name}</Table.Td>
-                                <Table.Td>{file.size}</Table.Td>
-                                <Table.Td>{file.type}</Table.Td>
-                                <Table.Td>
-                                    <Badge
-                                        color={file.status === 'Verificado' ? 'green' : file.status === 'Rechazado' ? 'red' : 'yellow'}
-                                    >
-                                        {file.status}
-                                    </Badge>
-                                </Table.Td>
+                <Skeleton visible={isPending} height={100} width="100%">
+                    <Table highlightOnHover verticalSpacing="sm">
+                        <Table.Thead>
+                            <Table.Tr>
+                                <Table.Th>Nombre</Table.Th>
+                                <Table.Th>Fecha</Table.Th>
+                                <Table.Th>Autor</Table.Th>
+                                <Table.Th>Categoría</Table.Th>
                             </Table.Tr>
-                        ))}
-                    </Table.Tbody>
-                </Table>
-            </Paper>
+                        </Table.Thead>
+                        <Table.Tbody>
+                            {documents?.map((file) => (
+                                <Table.Tr key={file.id}>
+                                    <Table.Td>{file.title}</Table.Td>
+                                    <Table.Td>{new Date(file.createdAt).toLocaleDateString()}</Table.Td>
+                                    <Table.Td>{file.user.name}</Table.Td>
+                                    <Table.Td>
+                                        <Badge
+                                            color={'yellow'}
+                                        >
+                                            {file.category}
+                                        </Badge>
+                                    </Table.Td>
+                                </Table.Tr>
+                            ))}
+                        </Table.Tbody>
+
+                    </Table>
+                </Skeleton>
+            </Paper >
         </>
     );
 }

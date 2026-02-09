@@ -5,7 +5,15 @@ import { filesUploader } from "../helpers/files-uploader";
 
 // @route GET /document
 export const getDocuments = async (req: Request, res: Response) => {
-    const documents = await prisma.document.findMany()
+    const documents = await prisma.document.findMany({
+        include: {
+            user: {
+                select: {
+                    name: true,
+                }
+            }
+        }
+    })
     res.json(documents)
 }
 
@@ -16,18 +24,31 @@ export const createDocument = async (req: Request, res: Response) => {
     let newFiles: { name: string; url: string; type: "image" | "video" | "raw" | "auto"; date: Date; }[] = [];
 
     if (req.files) {
+        console.log('req.files', req.files)
         newFiles = await filesUploader(req.files as Express.Multer.File[], `${userId}`);
+        console.log('newFiles', newFiles)
         if (!newFiles) {
             res.status(404).json({ message: "Error uploading files" });
             return;
         }
     }
-    console.log('newFiles', newFiles)
+
+    const userData = await prisma.user.findFirst({
+        where: {
+            clerkId: userId as string
+        }
+    })
+
+    if (!userData) {
+        res.status(404).json({ message: "User not found" });
+        return;
+    }
+
     const document = await prisma.document.create({
         data: {
             title,
             category: category,
-            userId: userId,
+            userId: userData.id,
             location: location,
             url: newFiles[0].url
         },

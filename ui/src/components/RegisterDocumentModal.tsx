@@ -1,8 +1,9 @@
 import { Button, FileInput, Modal, Select, TextInput } from '@mantine/core'
 import { IconUpload } from '@tabler/icons-react'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
-import { createDocument } from '../services/document'
+import { createDocument, getDocuments } from '../services/document'
+import { useUser } from '@clerk/clerk-react'
 
 const RegisterDocumentModal = ({
     opened,
@@ -11,6 +12,8 @@ const RegisterDocumentModal = ({
     opened: boolean
     close: () => void
 }) => {
+    const { user } = useUser();
+    const queryClient = useQueryClient();
 
     const [formData, setFormData] = useState({
         title: '',
@@ -22,13 +25,12 @@ const RegisterDocumentModal = ({
     const registerDocumentMutation = useMutation({
         mutationFn: createDocument.fn,
         onSuccess: () => {
-            // queryClient.invalidateQueries({ queryKey: [getUserByClerkId.key] });
-            // navigate('/');
-            // toast.success('Se actualizó el perfil con éxito!');
+            queryClient.invalidateQueries({ queryKey: [getDocuments.key] });
+            close();
         },
         onError: () => {
-            // toast.error('Error al actualizar el perfil');
-        }
+            alert('Error al registrar el documento');
+        },
     });
 
 
@@ -51,7 +53,16 @@ const RegisterDocumentModal = ({
                 value={formData.file}
                 onChange={(files) => files && setFormData({ ...formData, file: files })}
             />
-            <Button fullWidth onClick={() => registerDocumentMutation.mutate(formData)}>Subir Archivo</Button>
+            <Button fullWidth onClick={() => registerDocumentMutation.mutate({
+                ...formData,
+                userId: user?.id || ''
+            })}
+                loading={registerDocumentMutation.isPending}
+            >{
+                    registerDocumentMutation.isPending
+                        ? 'Registrando...'
+                        : 'Registrar Documento'
+                }</Button>
         </Modal>
     )
 }
