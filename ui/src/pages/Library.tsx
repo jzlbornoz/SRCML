@@ -10,7 +10,6 @@ import {
     Badge,
     ActionIcon,
     Menu,
-    Pagination,
     Text,
     Card,
     SimpleGrid,
@@ -63,7 +62,30 @@ export function Library() {
         return matchesSearch && matchesType;
     });
 
-    const rows = documents?.map((element) => (
+    async function downloadUrl(url: string, filename: string) {
+        try {
+            const response = await fetch(url);
+            const blob = await response.blob(); // Convertimos la respuesta en un Blob
+            const blobUrl = window.URL.createObjectURL(blob); // Creamos una URL local temporal
+
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            link.download = filename;
+
+            document.body.appendChild(link);
+            link.click();
+
+            // Limpieza
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(blobUrl); // Liberamos memoria
+        } catch (error) {
+            console.error("Error al descargar el archivo:", error);
+            // Fallback: intentar abrirlo en pestaña nueva si falla el fetch
+            window.open(url, '_blank');
+        }
+    }
+
+    const rows = filteredDocs?.map((element) => (
         <Table.Tr key={element.id}>
             <Table.Td>
                 <Group gap="sm">
@@ -90,10 +112,10 @@ export function Library() {
                             </ActionIcon>
                         </Menu.Target>
                         <Menu.Dropdown>
-                            <Menu.Item leftSection={<IconEye size={16} />}>Previsualizar</Menu.Item>
-                            <Menu.Item leftSection={<IconDownload size={16} />}>Descargar</Menu.Item>
+                            <Menu.Item leftSection={<IconEye size={16} />} onClick={() => { window.open(element.url) }}>Previsualizar</Menu.Item>
+                            <Menu.Item leftSection={<IconDownload size={16} />} onClick={() => { downloadUrl(element.url, element.title) }}>Descargar</Menu.Item>
                             <Menu.Divider />
-                            <Menu.Item leftSection={<IconTrash size={16} />} color="red">Eliminar</Menu.Item>
+                            {/* <Menu.Item leftSection={<IconTrash size={16} />} color="red">Eliminar</Menu.Item> */}
                         </Menu.Dropdown>
                     </Menu>
                 </Group>
@@ -157,9 +179,9 @@ export function Library() {
                                 placeholder="Tipo de archivo"
                                 leftSection={<IconFilter size={16} />}
                                 data={[
-                                    { value: 'pdf', label: 'Documentos PDF' },
-                                    { value: 'xlsx', label: 'Excel / Hojas de Cálculo' },
-                                    { value: 'jpg', label: 'Imágenes' },
+                                    { value: 'Gacetas', label: 'Gacetas' },
+                                    { value: 'Leyes', label: 'Leyes' },
+                                    { value: 'Libros', label: 'Libros' },
                                 ]}
                                 value={typeFilter}
                                 onChange={setTypeFilter}
@@ -217,9 +239,9 @@ export function Library() {
                 )}
 
                 {/* --- Paginación --- */}
-                <Group justify="center" mt="xl">
+                {/* <Group justify="center" mt="xl">
                     <Pagination total={5} color="indigo" />
-                </Group>
+                </Group> */}
             </Skeleton>
             <RegisterDocumentModal opened={opened} close={close} />
         </Stack>

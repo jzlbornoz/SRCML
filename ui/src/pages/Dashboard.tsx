@@ -5,10 +5,10 @@ import { useQuery } from '@tanstack/react-query';
 import { getDocuments } from '../services/document';
 
 export function Dashboard() {
-    const stats = [
-        { label: 'Archivos Totales', value: '1,240', diff: 12, color: 'teal' },
-        { label: 'Almacenamiento', value: '45 GB', diff: -2, color: 'red' },
-        { label: 'Usuarios Activos', value: '34', diff: 5, color: 'blue' },
+    const stats = (total: number, monthFiles: number) => [
+        { label: 'Archivos Totales', value: total, diff: 12, color: 'teal' },
+        { label: 'Archivos de este mes', value: monthFiles, diff: -2, color: 'red' },
+        { label: 'Usuarios Activos', value: 3, diff: 5, color: 'blue' },
     ];
 
     const { data: documents, isPending } = useQuery({
@@ -22,7 +22,7 @@ export function Dashboard() {
 
             {/* Tarjetas de Estadísticas */}
             <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="lg" mb="xl">
-                {stats.map((stat) => (
+                {stats(documents?.length || 0, documents?.length || 0).map((stat) => (
                     <Paper key={stat.label} radius="md">
                         <Group justify="space-between">
                             <div>
@@ -63,7 +63,7 @@ export function Dashboard() {
                             </Table.Tr>
                         </Table.Thead>
                         <Table.Tbody>
-                            {documents?.map((file) => (
+                            {documents?.slice(0, 3).map((file) => (
                                 <Table.Tr key={file.id}>
                                     <Table.Td>{file.title}</Table.Td>
                                     <Table.Td>{new Date(file.createdAt).toLocaleDateString()}</Table.Td>
